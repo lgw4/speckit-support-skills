@@ -35,7 +35,7 @@ onto a Spec Kit project's own domain or for anything else.
 
 ```
 /plugin marketplace add lgw4/speckit-support-skills
-/plugin install speckit-support-skills@speckit-support-skills
+/plugin install sks@speckit-support-skills
 ```
 
 Pull future updates with:
@@ -46,13 +46,17 @@ Pull future updates with:
 
 ## Invoking the skills
 
-Installing as a plugin namespaces every skill under the plugin's name:
-`/speckit-support-skills:grill-me`, `/speckit-support-skills:code-review`,
-and so on. The bare form (`/grill-me`, `/code-review`, ...) also works as
-long as nothing else installed claims the same name; if it collides with
-another plugin's skill or a built-in, Claude Code falls back to needing the
-namespaced form. The table below lists the bare form for brevity, prefix it
-with `speckit-support-skills:` if it doesn't resolve on its own.
+Installing as a plugin namespaces every skill under the plugin's name,
+`sks`: `/sks:grill-me`, `/sks:code-review`, and so on. The bare form
+(`/grill-me`, `/code-review`, ...) also works as long as nothing else
+installed claims the same name; if it collides with another plugin's skill
+or a built-in, Claude Code falls back to needing the namespaced form. The
+table below lists the bare form for brevity, prefix it with `sks:` if it
+doesn't resolve on its own.
+
+The plugin is `sks` but the marketplace it comes from is
+`speckit-support-skills`, which is why the install command above reads
+`sks@speckit-support-skills`.
 
 ## Skill catalog
 

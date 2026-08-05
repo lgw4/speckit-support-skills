@@ -95,11 +95,11 @@ copy and driving the skill against a real Spec Kit project:
 
 ```
 /plugin marketplace add /path/to/your/speckit-support-skills
-/plugin install speckit-support-skills@speckit-support-skills
+/plugin install sks@speckit-support-skills
 ```
 
-Then invoke the skill you changed (`/speckit-support-skills:code-review`,
-and so on) and confirm it:
+Then invoke the skill you changed (`/sks:code-review`, and so on) and
+confirm it:
 
 - finds and reads the constitution and spec tree it claims to read,
 - behaves the way the frontmatter `description` promises,

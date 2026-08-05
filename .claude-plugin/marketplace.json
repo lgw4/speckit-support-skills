@@ -5,7 +5,7 @@
   },
   "plugins": [
     {
-      "name": "speckit-support-skills",
+      "name": "sks",
       "source": "./",
       "description": "Support skills for GitHub Spec Kit projects: grilling before you spec, two-axis code review, architecture deepening, and stateful teaching."
     }
