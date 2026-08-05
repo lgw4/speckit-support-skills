@@ -1,0 +1,13 @@
+{
+  "name": "speckit-support-skills",
+  "owner": {
+    "name": "Chip Warden"
+  },
+  "plugins": [
+    {
+      "name": "speckit-support-skills",
+      "source": "./",
+      "description": "Support skills for GitHub Spec Kit projects: grilling before you spec, two-axis code review, architecture deepening, and stateful teaching."
+    }
+  ]
+}

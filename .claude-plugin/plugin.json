@@ -1,0 +1,20 @@
+{
+  "name": "speckit-support-skills",
+  "version": "0.1.0",
+  "description": "Support skills for GitHub Spec Kit projects: grilling before you spec, two-axis code review, architecture deepening, and stateful teaching. Ports of Matt Pocock's skills, adapted to read the Spec Kit constitution and spec tree.",
+  "author": {
+    "name": "Chip Warden"
+  },
+  "homepage": "https://github.com/lgw4/speckit-support-skills",
+  "repository": "https://github.com/lgw4/speckit-support-skills",
+  "license": "MIT",
+  "keywords": [
+    "spec-kit",
+    "speckit",
+    "grilling",
+    "code-review",
+    "architecture",
+    "teaching",
+    "productivity"
+  ]
+}
