@@ -95,16 +95,16 @@ Once the interview reaches a shared understanding (confirmed by the user, not
 assumed by you), produce the following in the conversation only:
 
 1. A decisions brief. The brief is the *input* to `/speckit-specify`'s
-   template, not a substitute for its output: writing spec.md's own sections
-   here locks in structure before the template gets to derive it, and
-   duplicates Spec Kit. Carry into the brief what only the interview could
-   have supplied: what is being built and where it lives, what v1 covers in
-   the user's own domain vocabulary, what is explicitly out of scope, the
-   decisions settled during the interview with the reason attached where
-   that reason constrains later work, and what acceptance should be
-   anchored to. Do not write numbered user stories, P1/P2/P3 priorities,
-   numbered functional requirements (FR-n), numbered success criteria
-   (SC-n), a key-entities list, or per-story acceptance scenarios;
+   template, not a substitute for its output: writing the sections that
+   belong in `spec.md` here locks in structure before the template gets to
+   derive it, and duplicates Spec Kit. Carry into the brief what only the
+   interview could have supplied: what is being built and where it lives,
+   what v1 covers in the user's own domain vocabulary, what is explicitly
+   out of scope, the decisions settled during the interview with the reason
+   attached where that reason constrains later work, and what acceptance
+   should be anchored to. Do not write numbered user stories, P1/P2/P3
+   priorities, numbered functional requirements (FR-n), numbered success
+   criteria (SC-n), a key-entities list, or per-story acceptance scenarios;
    `/speckit-specify` derives all of those itself. Write it as a few short
    prose paragraphs, not a headed outline.
 2. The list of open/unresolved questions, if any.
