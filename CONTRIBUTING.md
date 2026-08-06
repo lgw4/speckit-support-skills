@@ -43,8 +43,8 @@ relative link.
    model, so a sentence added in isolation can quietly contradict one three
    sections down.
 2. Keep the voice: second person, imperative, addressed to the agent
-   executing the skill ("Ask one question at a time"), not to the human
-   reader.
+   executing the skill ("Ask the whole frontier in one round"), not to the
+   human reader.
 3. If you change what a skill *does*, update its frontmatter `description`
    and the skill catalog table in [README.md](README.md) to match. The
    description is what Claude Code matches against to decide whether to
@@ -85,8 +85,8 @@ skill without bloating it, put it there instead.
 - No em-dashes unless nothing else will do. Hyphens, en-dashes, and slashes
   are tight: `well-known`, `2020–2025`, `and/or`.
 - Use fenced code blocks for command sequences and diagrams.
-- Prefer specific instructions over general encouragement. "Ask one question
-  at a time, and wait for the answer" beats "be thorough."
+- Prefer specific instructions over general encouragement. "Number each
+  question and give your recommended answer" beats "be thorough."
 
 ## Testing a change
 

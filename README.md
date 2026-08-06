@@ -62,11 +62,17 @@ The plugin is `sks` but the marketplace it comes from is
 
 | Skill | Invocation | What it does |
 |-------|------------|---------------|
-| [grill-me](skills/grill-me/SKILL.md) | `/grill-me` | Relentless one-question-at-a-time interview that turns a raw idea, or the gaps in an existing `spec.md`, into a decisions brief ready for `/speckit-specify` |
-| [grilling](skills/grilling/SKILL.md) | model-invoked | The shared interview loop `grill-me` and `improve-codebase-architecture` both run on |
+| [grill-me](skills/grill-me/SKILL.md) | `/grill-me` | Relentless round-by-round interview that turns a raw idea, or the gaps in an existing `spec.md`, into a decisions brief ready for `/speckit-specify` |
+| [grilling](skills/grilling/SKILL.md) | model-invoked | The shared round-by-round interview loop `grill-me` and `improve-codebase-architecture` both run on |
 | [code-review](skills/code-review/SKILL.md) | `/code-review` | Two-axis review of a diff: Standards (constitution + coding standards + Fowler smell baseline) and Spec (`spec.md`/`plan.md`/`tasks.md`), each run by a parallel sub-agent |
 | [improve-codebase-architecture](skills/improve-codebase-architecture/SKILL.md) | `/improve-codebase-architecture` | Scans for shallow modules and deepening opportunities, renders a visual HTML report, then grills through whichever candidate you pick |
 | [teach](skills/teach/SKILL.md) | `/teach` | Stateful, multi-session learning workspace: mission, resources, lessons, glossary, learning records |
+
+The interviews run round by round: each round asks every question whose
+prerequisites are already settled, so a session lands in a few rounds
+instead of one long drip. If you prefer one question at a time, say so, or
+add "When grilling, ask one question at a time." to your global
+`CLAUDE.md`.
 
 ## Credit
 

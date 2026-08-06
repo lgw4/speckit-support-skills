@@ -10,8 +10,8 @@ below are the parts easiest to get wrong.
 ## Editing skills
 
 - `SKILL.md` files are addressed to the agent running the skill, not to a
-  human reader: second person, imperative ("Ask one question at a time").
-  Match that voice.
+  human reader: second person, imperative ("Ask the whole frontier in one
+  round"). Match that voice.
 - Read the whole `SKILL.md` before editing one. A sentence added in
   isolation can contradict one three sections down.
 - Skills must stay grounded in Spec Kit, reading
