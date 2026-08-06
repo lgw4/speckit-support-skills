@@ -58,9 +58,11 @@ interview is headed before it starts.
 
 ## 5. Interview
 
-Run a `/grilling` session. Order questions highest-leverage-first: resolve the
-decision that most constrains the others before asking about details that only
-matter once it's settled.
+Run a `/grilling` session. It works round by round: each round asks the
+whole frontier, every question whose prerequisites are already settled.
+Seed the first round with the highest-leverage decisions, the ones that
+most constrain the others; details that only matter once those are settled
+belong to later rounds.
 
 Map question territory onto what a Spec Kit `spec.md` will eventually need, so
 the interview produces something directly usable:
