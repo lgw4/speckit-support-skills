@@ -4,11 +4,12 @@ A collection of [Claude Code](https://code.claude.com/docs/en/skills) **Agent
 Skills** that bracket [GitHub Spec Kit](https://github.com/github/spec-kit)'s
 spec-driven pipeline. Spec Kit is strong once a spec exists
 (`/speckit-specify` → `/speckit-clarify` → `/speckit-plan` → `/speckit-tasks`
-→ `/speckit-implement`), but it doesn't interrogate a fuzzy idea before
-turning it into a confident spec, doesn't review code against that spec once
-written, doesn't surface architectural decay, and doesn't teach.
+→ `/speckit-implement`), but it doesn't plan an initiative too big for a
+single spec, doesn't interrogate a fuzzy idea before turning it into a
+confident spec, doesn't review code against that spec once written, doesn't
+surface architectural decay, and doesn't teach.
 
-These five skills are ports of [Matt Pocock](https://github.com/mattpocock)'s
+These six skills are ports of [Matt Pocock](https://github.com/mattpocock)'s
 [skills](https://github.com/mattpocock/skills), adapted to read a Spec Kit
 project's `.specify/memory/constitution.md` and `specs/<NNN>-<name>/` tree as
 their source of truth instead of the generic conventions Matt's originals
@@ -18,18 +19,23 @@ look for. All credit for the underlying design goes to him; see
 ## Where these fit
 
 ```
-idea → /grill-me → /speckit-specify → /speckit-clarify → /speckit-plan
+oversized idea → /wayfinder ↘ (one feature-sized piece at a time)
+          idea → /grill-me → /speckit-specify → /speckit-clarify → /speckit-plan
      → /speckit-tasks → /speckit-implement → /code-review → /speckit-converge
                                            ↘ /improve-codebase-architecture
 ```
 
-`/grill-me` turns a fuzzy idea into a decisions brief before Spec Kit's
-pipeline starts. `/code-review` and `/improve-codebase-architecture` run
-after code exists, reading it against the spec, constitution, and each
-other's architecture, something `/speckit-analyze` doesn't do since it only
-compares Spec Kit's own artifacts against each other. `/teach` is
-orthogonal, a standalone stateful learning workspace, useful for onboarding
-onto a Spec Kit project's own domain or for anything else.
+`/wayfinder` charts an initiative too big for one spec as a
+version-controlled map of decisions under a top-level `wayfinder/`
+directory, resolved one session at a time until each remaining piece is
+feature-sized and ready to enter the pipeline. `/grill-me` turns a fuzzy
+idea into a decisions brief before Spec Kit's pipeline starts.
+`/code-review` and `/improve-codebase-architecture` run after code exists,
+reading it against the spec, constitution, and each other's architecture,
+something `/speckit-analyze` doesn't do since it only compares Spec Kit's
+own artifacts against each other. `/teach` is orthogonal, a standalone
+stateful learning workspace, useful for onboarding onto a Spec Kit
+project's own domain or for anything else.
 
 ## Installation
 
@@ -62,6 +68,7 @@ The plugin is `sks` but the marketplace it comes from is
 
 | Skill | Invocation | What it does |
 |-------|------------|---------------|
+| [wayfinder](skills/wayfinder/SKILL.md) | `/wayfinder` | Charts an initiative too big for one spec as a version-controlled map of decisions (`wayfinder/<map-slug>/`), then resolves one decision per session until every remaining piece is feature-sized and ready for `/grill-me` |
 | [grill-me](skills/grill-me/SKILL.md) | `/grill-me` | Relentless round-by-round interview that turns a raw idea, or the gaps in an existing `spec.md`, into a decisions brief ready for `/speckit-specify` |
 | [grilling](skills/grilling/SKILL.md) | model-invoked | The shared round-by-round interview loop `grill-me` and `improve-codebase-architecture` both run on |
 | [code-review](skills/code-review/SKILL.md) | `/code-review` | Two-axis review of a diff: Standards (constitution + coding standards + Fowler smell baseline) and Spec (`spec.md`/`plan.md`/`tasks.md`), each run by a parallel sub-agent |
@@ -77,11 +84,14 @@ add "When grilling, ask one question at a time." to your global
 ## Credit
 
 These skills are close ports of Matt Pocock's
-[mattpocock/skills](https://github.com/mattpocock/skills) (`grill-me`,
-`grilling`, `code-review`, `improve-codebase-architecture`, `codebase-design`,
-and `teach`), reworked to ground themselves in Spec Kit's constitution and
-spec tree instead of the generic conventions the originals look for. The
-interview technique, the two-axis review, the deep-module vocabulary, and the
+[mattpocock/skills](https://github.com/mattpocock/skills), specifically his
+`wayfinder`, `grill-me`, `grilling`, `code-review`,
+`improve-codebase-architecture`, `codebase-design`, and `teach`
+(`codebase-design` has no standalone skill here; it is folded into this
+repo's `improve-codebase-architecture`). They are reworked to ground
+themselves in Spec Kit's constitution and spec tree instead of the generic
+conventions the originals look for. The decision-map model, the interview
+technique, the two-axis review, the deep-module vocabulary, and the
 teaching workspace model are all his; go star the original repo.
 
 The `grill-me` framing was also informed by Luis Mori's
