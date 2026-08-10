@@ -29,12 +29,13 @@ oversized idea → /wayfinder ↘ (one feature-sized piece at a time)
 version-controlled map of decisions under a top-level `wayfinder/`
 directory, resolved one session at a time until each remaining piece is
 feature-sized and ready to enter the pipeline. `/grill-me` turns a fuzzy
-idea into a decisions brief before Spec Kit's pipeline starts. `/code-review` and `/improve-codebase-architecture` run
-after code exists, reading it against the spec, constitution, and each
-other's architecture, something `/speckit-analyze` doesn't do since it only
-compares Spec Kit's own artifacts against each other. `/teach` is
-orthogonal, a standalone stateful learning workspace, useful for onboarding
-onto a Spec Kit project's own domain or for anything else.
+idea into a decisions brief before Spec Kit's pipeline starts.
+`/code-review` and `/improve-codebase-architecture` run after code exists,
+reading it against the spec, constitution, and each other's architecture,
+something `/speckit-analyze` doesn't do since it only compares Spec Kit's
+own artifacts against each other. `/teach` is orthogonal, a standalone
+stateful learning workspace, useful for onboarding onto a Spec Kit
+project's own domain or for anything else.
 
 ## Installation
 
@@ -83,13 +84,15 @@ add "When grilling, ask one question at a time." to your global
 ## Credit
 
 These skills are close ports of Matt Pocock's
-[mattpocock/skills](https://github.com/mattpocock/skills) (`wayfinder`,
-`grill-me`, `grilling`, `code-review`, `improve-codebase-architecture`,
-`codebase-design`, and `teach`), reworked to ground themselves in Spec Kit's
-constitution and spec tree instead of the generic conventions the originals
-look for. The decision-map model, the interview technique, the two-axis
-review, the deep-module vocabulary, and the teaching workspace model are all
-his; go star the original repo.
+[mattpocock/skills](https://github.com/mattpocock/skills), specifically his
+`wayfinder`, `grill-me`, `grilling`, `code-review`,
+`improve-codebase-architecture`, `codebase-design`, and `teach`
+(`codebase-design` has no standalone skill here; it is folded into this
+repo's `improve-codebase-architecture`). They are reworked to ground
+themselves in Spec Kit's constitution and spec tree instead of the generic
+conventions the originals look for. The decision-map model, the interview
+technique, the two-axis review, the deep-module vocabulary, and the
+teaching workspace model are all his; go star the original repo.
 
 The `grill-me` framing was also informed by Luis Mori's
 ["The Grill-Me Skill" article](https://luismori.dev/article/grill-me-skill-agentic-development-workflow/),
