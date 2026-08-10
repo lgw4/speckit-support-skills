@@ -1,7 +1,7 @@
 {
   "name": "sks",
-  "version": "0.4.0",
-  "description": "Support skills for GitHub Spec Kit projects: grilling before you spec, two-axis code review, architecture deepening, and stateful teaching. Ports of Matt Pocock's skills, adapted to read the Spec Kit constitution and spec tree.",
+  "version": "0.5.0",
+  "description": "Support skills for GitHub Spec Kit projects: initiative-scale decision mapping, grilling before you spec, two-axis code review, architecture deepening, and stateful teaching. Ports of Matt Pocock's skills, adapted to read the Spec Kit constitution and spec tree.",
   "author": {
     "name": "Chip Warden"
   },
@@ -11,6 +11,8 @@
   "keywords": [
     "spec-kit",
     "speckit",
+    "wayfinder",
+    "planning",
     "grilling",
     "code-review",
     "architecture",

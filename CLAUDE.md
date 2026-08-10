@@ -54,6 +54,6 @@ missing.
 
 ## Attribution
 
-Four of the five skills are ports of Matt Pocock's
+Five of the six skills are ports of Matt Pocock's
 [skills](https://github.com/mattpocock/skills). Keep the README Credit
 section accurate and both copyright notices in [LICENSE](LICENSE) intact.

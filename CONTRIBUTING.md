@@ -16,7 +16,7 @@ the occasional new skill.
   `/speckit-plan`, `/speckit-tasks`, `/speckit-implement`, or
   `/speckit-analyze` already does something, a skill here should not do it
   again. These skills bracket that pipeline; they don't replace parts of it.
-- **Preserve attribution.** Four of the five skills are ports of
+- **Preserve attribution.** Five of the six skills are ports of
   [Matt Pocock's skills](https://github.com/mattpocock/skills). Keep the
   Credit section of the README accurate, and keep both copyright notices in
   [LICENSE](LICENSE) intact.
