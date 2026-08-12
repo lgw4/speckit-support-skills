@@ -53,9 +53,14 @@ The map sits **above** the feature level, and stays there:
   task slicing to `/speckit-tasks`. The map never does either.
 - When resolved decisions have shrunk a piece of work to feature size,
   that piece exits the map: the user runs `/grill-me` on it, then
-  `/speckit-specify`. Record the resulting `specs/<NNN>-<name>/`
-  directory in the relevant resolution, so the map stays traceable to
-  the features it spawned.
+  `/speckit-specify`. Frame that handoff in what/why terms only: specs
+  are technology-agnostic, so technology choices the map has resolved
+  (languages, frameworks, services, data stores) must not travel into
+  it. They keep living in their decision files; note in the handoff
+  that they exist and belong to `/speckit-plan`, which should read
+  those resolutions when the feature reaches planning. Record the
+  resulting `specs/<NNN>-<name>/` directory in the relevant
+  resolution, so the map stays traceable to the features it spawned.
 
 ## Refer by name
 

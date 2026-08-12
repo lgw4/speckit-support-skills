@@ -107,10 +107,16 @@ assumed by you), produce the following in the conversation only:
    should be anchored to. Do not write numbered user stories, P1/P2/P3
    priorities, numbered functional requirements (FR-n), numbered success
    criteria (SC-n), a key-entities list, or per-story acceptance scenarios;
-   `/speckit-specify` derives all of those itself. Write it as a few short
+   `/speckit-specify` derives all of those itself. Keep the brief
+   technology-agnostic: specs must not carry implementation choices, so
+   technology decisions do not belong in it. Write it as a few short
    prose paragraphs, not a headed outline.
-2. The list of open/unresolved questions, if any.
-3. The recommended next command (`/speckit-specify` in the common case, or a
+2. Any technology choices the interview settled (languages, frameworks,
+   services, data stores), as a separate list clearly labeled as input
+   for `/speckit-plan`. Pulling them out of the brief keeps them from
+   leaking into `spec.md` while preserving them for planning.
+3. The list of open/unresolved questions, if any.
+4. The recommended next command (`/speckit-specify` in the common case, or a
    note that the existing spec should be updated with these answers if you
    were in gap-mode).
 
