@@ -1,6 +1,6 @@
 ---
 name: wayfinder
-description: Plan an initiative too big for one agent session or one Spec Kit feature as a version-controlled map of decisions in the repo's wayfinder/ directory, resolved one per session until every remaining piece is feature-sized and ready for /grill-me and /speckit-specify. Use when the user brings a loose, oversized idea to chart, or points at an existing map to work through.
+description: Plan an initiative too big for one agent session or one Spec Kit feature as a version-controlled map of decisions in the repo's wayfinder/ directory, resolved one per session until every remaining piece is feature-sized and ready for /grill-me and /speckit-specify, handing off in what/why terms with settled technology choices routed to /speckit-plan. Use when the user brings a loose, oversized idea to chart, or points at an existing map to work through.
 disable-model-invocation: true
 argument-hint: "A loose idea to chart, or an existing map to work through"
 ---
@@ -53,9 +53,14 @@ The map sits **above** the feature level, and stays there:
   task slicing to `/speckit-tasks`. The map never does either.
 - When resolved decisions have shrunk a piece of work to feature size,
   that piece exits the map: the user runs `/grill-me` on it, then
-  `/speckit-specify`. Record the resulting `specs/<NNN>-<name>/`
-  directory in the relevant resolution, so the map stays traceable to
-  the features it spawned.
+  `/speckit-specify`. Frame that handoff in what/why terms only: specs
+  are technology-agnostic, so technology choices the map has resolved
+  (languages, frameworks, services, data stores) must not travel into
+  it. They keep living in their decision files; note in the handoff
+  that they exist and belong to `/speckit-plan`, which should read
+  those resolutions when the feature reaches planning. Record the
+  resulting `specs/<NNN>-<name>/` directory in the relevant
+  resolution, so the map stays traceable to the features it spawned.
 
 ## Refer by name
 
