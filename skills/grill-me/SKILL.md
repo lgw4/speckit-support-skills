@@ -1,6 +1,6 @@
 ---
 name: grill-me
-description: A relentless interview to sharpen a plan or idea before it becomes a Spec Kit feature, or to deep-grill the gaps in a spec that already exists.
+description: A relentless interview to sharpen a plan or idea before it becomes a Spec Kit feature, or to deep-grill the gaps in a spec that already exists. Produces a technology-agnostic decisions brief for /speckit-specify, with settled technology choices split out for /speckit-plan.
 disable-model-invocation: true
 argument-hint: "What do you want to be grilled on?"
 ---

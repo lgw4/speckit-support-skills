@@ -68,8 +68,8 @@ The plugin is `sks` but the marketplace it comes from is
 
 | Skill | Invocation | What it does |
 |-------|------------|---------------|
-| [wayfinder](skills/wayfinder/SKILL.md) | `/wayfinder` | Charts an initiative too big for one spec as a version-controlled map of decisions (`wayfinder/<map-slug>/`), then resolves one decision per session until every remaining piece is feature-sized and ready for `/grill-me` |
-| [grill-me](skills/grill-me/SKILL.md) | `/grill-me` | Relentless round-by-round interview that turns a raw idea, or the gaps in an existing `spec.md`, into a decisions brief ready for `/speckit-specify` |
+| [wayfinder](skills/wayfinder/SKILL.md) | `/wayfinder` | Charts an initiative too big for one spec as a version-controlled map of decisions (`wayfinder/<map-slug>/`), then resolves one decision per session until every remaining piece is feature-sized and ready for `/grill-me`, handing off what/why only and routing settled technology choices to `/speckit-plan` |
+| [grill-me](skills/grill-me/SKILL.md) | `/grill-me` | Relentless round-by-round interview that turns a raw idea, or the gaps in an existing `spec.md`, into a technology-agnostic decisions brief ready for `/speckit-specify`, with settled technology choices split out for `/speckit-plan` |
 | [grilling](skills/grilling/SKILL.md) | model-invoked | The shared round-by-round interview loop `grill-me` and `improve-codebase-architecture` both run on |
 | [code-review](skills/code-review/SKILL.md) | `/code-review` | Two-axis review of a diff: Standards (constitution + coding standards + Fowler smell baseline) and Spec (`spec.md`/`plan.md`/`tasks.md`), each run by a parallel sub-agent |
 | [improve-codebase-architecture](skills/improve-codebase-architecture/SKILL.md) | `/improve-codebase-architecture` | Scans for shallow modules and deepening opportunities, renders a visual HTML report, then grills through whichever candidate you pick |

@@ -1,6 +1,6 @@
 ---
 name: wayfinder
-description: Plan an initiative too big for one agent session or one Spec Kit feature as a version-controlled map of decisions in the repo's wayfinder/ directory, resolved one per session until every remaining piece is feature-sized and ready for /grill-me and /speckit-specify. Use when the user brings a loose, oversized idea to chart, or points at an existing map to work through.
+description: Plan an initiative too big for one agent session or one Spec Kit feature as a version-controlled map of decisions in the repo's wayfinder/ directory, resolved one per session until every remaining piece is feature-sized and ready for /grill-me and /speckit-specify, handing off in what/why terms with settled technology choices routed to /speckit-plan. Use when the user brings a loose, oversized idea to chart, or points at an existing map to work through.
 disable-model-invocation: true
 argument-hint: "A loose idea to chart, or an existing map to work through"
 ---
