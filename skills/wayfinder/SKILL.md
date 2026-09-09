@@ -176,8 +176,8 @@ decision only resolves through that live exchange; never stand in for the
 human's side of it. A grilling session that answers its own questions has
 broken this.
 
-- **Grilling** (HITL): conversation. The default case. Run a `/grilling`
-  session scoped to this one decision.
+- **Grilling** (HITL): conversation. The default case. Call the Skill tool
+  with "sks:grilling", scoped to this one decision.
 - **Research** (AFK): reading documentation, third-party APIs, or local
   resources to surface a fact a decision waits on. Resolve it with a
   sub-agent (`subagent_type=Explore` for facts inside the repo, a
@@ -260,10 +260,10 @@ session**, with the exception of research decisions.
 
 The user invokes with a loose idea.
 
-1. **Name the destination.** Run a `/grilling` session to pin down what
-   this map is finding its way to: a carved-up initiative, a locked
-   decision, or an in-place change. The destination fixes the scope, so
-   it is settled first.
+1. **Name the destination.** Call the Skill tool with "sks:grilling" to
+   pin down what this map is finding its way to: a carved-up initiative,
+   a locked decision, or an in-place change. The destination fixes the
+   scope, so it is settled first.
 2. **Map the frontier.** Grill again, **breadth-first** this time: fan
    out across the whole space rather than deep on any one thread,
    surfacing the open decisions and the first steps takeable now. **If
@@ -295,8 +295,9 @@ named map directory doesn't exist, say so and offer to chart it instead.
    the frontier decision whose resolution unblocks the most. **Confirm
    the choice by name** before starting.
 3. Resolve it, zooming as needed: read the full body of any related or
-   resolved decision on demand; invoke the skills the map's **Notes**
-   section names. If in doubt, run `/grilling`.
+   resolved decision on demand; call the Skill tool for whichever skills
+   the map's **Notes** section names. If in doubt, call it with
+   "sks:grilling".
 4. Record the resolution: append the `## Resolution` section, flip
    `status` to `resolved`, and add one gist line to the map's Decisions
    so far.

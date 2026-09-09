@@ -145,9 +145,9 @@ of these would you like to explore?"
 
 ### 3. Grilling loop
 
-Once the user picks a candidate, run the `/grilling` skill to walk the
-decision tree with them: constraints, dependencies, the shape of the deepened
-module, what sits behind the seam, what tests survive.
+Once the user picks a candidate, call the Skill tool with "sks:grilling" to
+walk the decision tree with them: constraints, dependencies, the shape of the
+deepened module, what sits behind the seam, what tests survive.
 
 ### 4. Exit, read-only
 
