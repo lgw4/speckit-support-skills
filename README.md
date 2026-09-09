@@ -33,7 +33,10 @@ idea into a decisions brief before Spec Kit's pipeline starts.
 `/code-review` and `/improve-codebase-architecture` run after code exists,
 reading it against the spec, constitution, and each other's architecture,
 something `/speckit-analyze` doesn't do since it only compares Spec Kit's
-own artifacts against each other. `/teach` is orthogonal, a standalone
+own artifacts against each other. `/improve-codebase-architecture` persists
+its findings as version-controlled Markdown under a top-level
+`architecture-reviews/` directory, then works through one candidate per
+session. `/teach` is orthogonal, a standalone
 stateful learning workspace, useful for onboarding onto a Spec Kit
 project's own domain or for anything else.
 
@@ -72,7 +75,7 @@ The plugin is `sks` but the marketplace it comes from is
 | [grill-me](skills/grill-me/SKILL.md) | `/grill-me` | Relentless round-by-round interview that turns a raw idea, or the gaps in an existing `spec.md`, into a technology-agnostic decisions brief ready for `/speckit-specify`, with settled technology choices split out for `/speckit-plan` |
 | [grilling](skills/grilling/SKILL.md) | model-invoked | The shared round-by-round interview loop `wayfinder`, `grill-me`, and `improve-codebase-architecture` all run on |
 | [code-review](skills/code-review/SKILL.md) | `/code-review` | Two-axis review of a diff: Standards (constitution + coding standards + Fowler smell baseline) and Spec (`spec.md`/`plan.md`/`tasks.md`), each run by a parallel sub-agent |
-| [improve-codebase-architecture](skills/improve-codebase-architecture/SKILL.md) | `/improve-codebase-architecture` | Scans for shallow modules and deepening opportunities, renders a visual HTML report, then grills through whichever candidate you pick |
+| [improve-codebase-architecture](skills/improve-codebase-architecture/SKILL.md) | `/improve-codebase-architecture` | Scans for shallow modules and deepening opportunities, persists them as version-controlled Markdown (`architecture-reviews/<date>-<slug>/`, one file per candidate) alongside a sub-agent-rendered HTML report, then grills through one candidate per session and hands it to `/speckit-specify` |
 | [teach](skills/teach/SKILL.md) | `/teach` | Stateful, multi-session learning workspace: mission, resources, lessons, glossary, learning records |
 
 The interviews run round by round: each round asks every question whose
