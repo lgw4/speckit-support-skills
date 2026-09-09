@@ -1,13 +1,14 @@
 ---
 name: improve-codebase-architecture
-description: Scan a codebase for deepening opportunities, present them as a visual HTML report, then grill through whichever one you pick.
+description: Scan a codebase for deepening opportunities, persist them as Markdown under a top-level architecture-reviews/ directory alongside a rendered HTML report, then grill through one candidate per session. Use when the user wants an architectural review, wants to find shallow modules or refactoring opportunities, or wants to resume a review already on disk.
 disable-model-invocation: true
 ---
 
 # Improve Codebase Architecture
 
-Surface architectural friction and propose **deepening opportunities**: refactors that turn shallow modules into deep ones. The aim is testability and
-AI-navigability.
+Surface architectural friction and propose **deepening opportunities**:
+refactors that turn shallow modules into deep ones. The aim is testability
+and AI-navigability.
 
 ## Vocabulary
 
@@ -59,7 +60,108 @@ verification concentrate in one place rather than spreading across callers.
   module can be internally composed of small, mockable, swappable parts;
   they just aren't part of the interface.
 
+## Where the review lives
+
+A review is a directory at the top level of the repo, one per run:
+
+```
+architecture-reviews/<YYYY-MM-DD>-<slug>/
+  review.md              # the index: scope, commit, candidate list, top pick
+  candidates/
+    <slug>.md            # one file per candidate; the durable record
+  review.html            # the rendering; generated, gitignored
+```
+
+`architecture-reviews/` is a sibling of `specs/` and `wayfinder/`. It is
+deliberately not inside `.specify/`, which Spec Kit owns and rewrites on
+upgrade, and not inside `specs/`, whose entries Spec Kit's scripts expect to
+be `NNN-name` feature directories. `<slug>` names the scope that was scanned
+(`2026-04-11-order-intake`), and one directory per run means a rerun never
+clobbers a review the user is still working through.
+
+**The Markdown is the source of truth.** It is version-controlled, cheap to
+re-read, and greppable; the HTML is a rendering of it and is regenerated, not
+edited. Splitting candidates one-per-file is what lets a later session load
+only the candidate it is grilling instead of the whole review.
+
+`review.md` is an **index, not a store**: it gists each candidate and links to
+its file, never restating the detail that lives there.
+
+```markdown
+---
+date: <YYYY-MM-DD>
+commit: <HEAD sha at scan time>
+scope: <what was scanned, and why those paths>
+feature: specs/<NNN>-<name>/   # omit if no feature directory resolved
+---
+
+# Architecture review: <scope>
+
+## Candidates
+
+- [<title>](candidates/<slug>.md) - `Strong` - <one-line gist>
+
+## Top recommendation
+
+<which candidate to tackle first, one sentence why, linked by name>
+```
+
+Each candidate file carries everything both the renderer and a later grilling
+session need:
+
+```markdown
+---
+title: <names the deepening, e.g. "Collapse the Order intake pipeline">
+strength: Strong        # or: Worth exploring, Speculative
+status: open            # or: grilled, specified, rejected
+files: [<path>, <path>]
+---
+
+## Problem
+
+<one sentence: what hurts>
+
+## Solution
+
+<one sentence: what changes>
+
+## Wins
+
+<bullets, six words or fewer, in glossary terms>
+
+## Diagram
+
+<which pattern from HTML-REPORT.md fits, and what the before and after shapes
+are, in words. This is what the renderer draws from.>
+
+## Constitution
+
+<only when the candidate contradicts a principle: name the principle and why
+it is worth reopening anyway>
+```
+
 ## Process
+
+### 0. Resume or scan
+
+Walk up from the current directory to find the repo root; that is where
+`architecture-reviews/` lives. If there is no git repo, use the current
+directory and tell the user that is where the review went. Everything below
+that shells out to git, the hot-spot scan in step 1, the recorded commit, the
+drift check, and the `.gitignore` offer in step 2, is skipped in that case.
+The review still works; it just loses its provenance.
+
+If `architecture-reviews/` already exists, read the frontmatter of the most
+recent review's candidates. If any are still `open`, offer to resume that
+review rather than rescanning: read `review.md`, list the open candidates by
+name, and go to step 3. Refer to candidates by their titles, never by bare
+slugs or paths.
+
+When the review records a `commit`, compare it against current HEAD. If the
+tree has moved on enough that the findings may no longer hold, say so and let
+the user choose between resuming anyway and a fresh scan.
+
+Otherwise continue to step 1.
 
 ### 1. Explore
 
@@ -73,6 +175,11 @@ that have recently changed. Decide *where* to look before you look:
   --oneline`) to find the codebase's hot spots: the files and areas that keep
   coming up. Let those paths pull your attention first. If the changes
   are scattered with no clear hot spot, widen the net.
+
+Record the current HEAD SHA (`git rev-parse HEAD`) while you are here; step 2
+stamps it into `review.md` so a later session can tell how far the tree has
+moved. Outside a git repo, skip the history walk above and leave `commit` out
+of the frontmatter.
 
 For domain vocabulary, read the current feature's `data-model.md` and the
 `Key Entities` section of its `spec.md` if a `.specify/` tree exists. Use the
@@ -98,65 +205,76 @@ Apply the **deletion test** to anything you suspect is shallow: would deleting
 it concentrate complexity, or just move it? A "yes, concentrates" is the
 signal you want.
 
-### 2. Present candidates as an HTML report
+### 2. Write the review, then have it rendered
 
-Write a self-contained HTML file to the OS temp directory so nothing lands in
-the repo. Resolve the temp dir from `$TMPDIR`, falling back to `/tmp` (or
-`%TEMP%` on Windows), and write to
-`<tmpdir>/architecture-review-<timestamp>.html` so each run gets a fresh file.
-Open it for the user: `open <path>` on macOS, `xdg-open <path>` on Linux,
-`start <path>` on Windows. Tell them the absolute path.
+Write the Markdown yourself; delegate the HTML. In order:
 
-The report uses **Tailwind via CDN** for layout and styling, and **Mermaid via
-CDN** for diagrams where a graph/flow/sequence reliably communicates the
-structure. Mix Mermaid with hand-crafted CSS/SVG visuals; use Mermaid when
-relationships are graph-shaped (call graphs, dependencies, sequences), and
-hand-built divs/SVG when you want something more editorial (mass diagrams,
-cross-sections, collapse animations). Each candidate gets a **before/after
-visualization**. Be visual.
+**Create the directory.** Make
+`architecture-reviews/<YYYY-MM-DD>-<slug>/candidates/` at the repo root,
+using the layout above.
 
-For each candidate, render a card with:
+**Write one file per candidate**, then `review.md` as the index. Fill every
+section of the candidate template: the `## Diagram` section is prose, not
+markup, describing which pattern from [HTML-REPORT.md](HTML-REPORT.md) fits
+and what the before and after shapes are. The renderer draws from it, so a
+vague `## Diagram` section produces a vague diagram.
 
-- **Files:** which files/modules are involved
-- **Problem:** why the current architecture is causing friction
-- **Solution:** plain English description of what would change
-- **Benefits:** explained in terms of locality and leverage, and how tests
-  would improve
-- **Before / After diagram:** side-by-side, custom-drawn, illustrating the
-  shallowness and the deepening
-- **Recommendation strength:** one of `Strong`, `Worth exploring`,
-  `Speculative`, rendered as a badge
+**Offer to ignore the HTML.** In a git repo, check whether the rendering is
+already ignored, with `git check-ignore -q` on the `review.html` path. If it
+isn't, tell the user the line to add, `architecture-reviews/**/review.html`,
+and offer to add it. Never edit `.gitignore` without being asked.
 
-End the report with a **Top recommendation** section: which candidate you'd
-tackle first and why.
+**Delegate the rendering.** Use the Agent tool to write `review.html`. Give
+the sub-agent the absolute path to the review directory and the absolute path
+to `HTML-REPORT.md` in this skill's directory, and have it read the candidate
+files and write the HTML. Ask it to return only the path it wrote. Do not
+author the markup in this session: keeping several thousand tokens of Tailwind
+and Mermaid out of the main context is the point, and it is what leaves room
+for the grilling loop.
 
-See [HTML-REPORT.md](HTML-REPORT.md) for the full HTML scaffold, diagram
-patterns, and styling guidance.
+**Open it and report both paths.** `open <path>` on macOS, `xdg-open <path>`
+on Linux, `start <path>` on Windows. Tell the user where `review.md` is first
+and `review.html` second; the Markdown is what survives.
 
 **Constitution conflicts**: if a candidate contradicts a principle in
 `.specify/memory/constitution.md`, only surface it when the friction is real
-enough to warrant revisiting the principle. Mark it clearly in the card (a
-warning callout: *"contradicts Constitution Principle III, but worth
-reopening because..."*). Don't list every theoretical refactor the
-constitution forbids.
+enough to warrant revisiting the principle. Put it in that candidate's
+`## Constitution` section, naming the principle (*"contradicts Constitution
+Principle III, but worth reopening because..."*); the renderer turns it into a
+callout. Don't list every theoretical refactor the constitution forbids.
 
-Do NOT propose interfaces yet. After the file is written, ask the user: "Which
-of these would you like to explore?"
+Do NOT propose interfaces yet. Once the files are written, ask the user:
+"Which of these would you like to explore?"
 
-### 3. Grilling loop
+### 3. Grilling loop, one candidate per session
 
-Once the user picks a candidate, call the Skill tool with "sks:grilling" to
-walk the decision tree with them: constraints, dependencies, the shape of the
-deepened module, what sits behind the seam, what tests survive.
+Once the user picks a candidate, read that candidate's file and call the Skill
+tool with "sks:grilling" to walk the decision tree with them: constraints,
+dependencies, the shape of the deepened module, what sits behind the seam,
+what tests survive.
 
-### 4. Exit, read-only
+**One candidate per session.** Grill the candidate the user picked, hand it
+off in step 4, and stop. Do not move on to the next candidate, and do not run
+the Spec Kit pipeline across several of them in one session; that is what
+fills the context window and loses the review. The user re-invokes this skill
+for the next one, and step 0 picks the review back up, reading `review.md`
+plus the one candidate file that session needs.
 
-This skill never edits code and never touches the `.specify/` or `specs/`
-tree. Once the grilling loop reaches a shared understanding, offer next steps
-rather than acting on them:
+### 4. Exit
+
+This skill never edits source code and never touches the `.specify/` or
+`specs/` tree. The only thing it writes is its own `architecture-reviews/`
+directory, plus one `.gitignore` line when the user asks for it.
+
+Append what the grilling settled to the candidate's file and update its
+`status`. Then offer next steps rather than acting on them:
 
 - Feed the chosen refactor into `/speckit-specify` as a new feature, using the
-  grilling session's decisions as the feature description.
+  grilling session's decisions as the feature description. When a feature
+  directory results, set the candidate's `status` to `specified` and record
+  the `specs/<NNN>-<name>/` path in its file, so the review stays traceable
+  to the features it spawned. A candidate the user rules out is `rejected`,
+  with the reason; one talked through but not specified is `grilled`.
 - If the conversation surfaced a principle worth recording, for instance
   because a candidate was rejected specifically for contradicting one, or
   because a gap in the constitution caused real ambiguity, suggest

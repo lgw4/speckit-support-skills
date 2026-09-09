@@ -1,10 +1,31 @@
 # HTML Report Format
 
-The architectural review is rendered as a single self-contained HTML file in
-the OS temp directory. Tailwind and Mermaid both come from CDNs. Mermaid
-handles graph-shaped diagrams reliably; hand-built divs and inline SVG handle
-the more editorial visuals (mass diagrams, cross-sections). Mix the two, don't
-lean on Mermaid for everything, it'll start to look generic.
+The architectural review is rendered as a single self-contained HTML file at
+`architecture-reviews/<YYYY-MM-DD>-<slug>/review.html`. Tailwind and Mermaid
+both come from CDNs. Mermaid handles graph-shaped diagrams reliably;
+hand-built divs and inline SVG handle the more editorial visuals (mass
+diagrams, cross-sections). Mix the two, don't lean on Mermaid for everything,
+it'll start to look generic.
+
+## Your input
+
+You are the rendering sub-agent. Your input is the Markdown already written in
+the review directory: `review.md` for the header and top recommendation, and
+one file per candidate in `candidates/`. Read them, then write `review.html`
+next to `review.md` and return only that path.
+
+Render what the Markdown says. Do not invent candidates, drop them, reorder
+them, or rewrite their prose; the Markdown is the source of truth and the
+human will read it too. Your judgment goes into the diagrams, which are yours
+to draw from each candidate's `## Diagram` section.
+
+The candidate frontmatter and sections map onto the card fields below:
+`title` is the card title, `strength` is the badge, `files` is the monospaced
+file list, `## Problem` and `## Solution` are the one-liners, `## Wins` is the
+bullets, `## Diagram` selects the pattern and describes the before and after
+shapes, and `## Constitution`, when present, becomes the amber callout. A
+candidate whose `status` is `rejected` still gets a card, dimmed, with its
+status shown.
 
 ## Scaffold
 
@@ -39,7 +60,8 @@ lean on Mermaid for everything, it'll start to look generic.
 
 ## Header
 
-Repo name, feature directory (if resolved), date, and a compact legend: solid
+From `review.md`'s frontmatter: scope, feature directory (if present), date,
+and the commit the scan ran against. Then a compact legend: solid
 box = module, dashed line = seam, red arrow = leakage, thick dark box = deep
 module. No introduction paragraph, straight into the candidates.
 
