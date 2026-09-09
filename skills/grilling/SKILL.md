@@ -20,10 +20,17 @@ highest-leverage question on its own and wait. Only the number of questions
 per round changes; the tree, the frontier, and everything below still
 govern what you ask and when.
 
-Format each question like so:
+Format a round like so, separating consecutive questions with a horizontal
+rule so the user can tell where one ends and the next begins:
 
 ```
 ❓ **Q1** - **<question title>**: <question body, possibly several paragraphs, including any multiple choices>
+
+➡️ <your recommended answer>
+
+---
+
+❓ **Q2** - **<question title>**: <question body, possibly several paragraphs, including any multiple choices>
 
 ➡️ <your recommended answer>
 ```
