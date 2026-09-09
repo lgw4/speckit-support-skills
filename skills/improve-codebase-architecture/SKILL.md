@@ -145,8 +145,11 @@ it is worth reopening anyway>
 ### 0. Resume or scan
 
 Walk up from the current directory to find the repo root; that is where
-`architecture-reviews/` lives. If there is no repo root, use the current
-directory and tell the user that is where the review went.
+`architecture-reviews/` lives. If there is no git repo, use the current
+directory and tell the user that is where the review went. Everything below
+that shells out to git, the hot-spot scan in step 1, the recorded commit, the
+drift check, and the `.gitignore` offer in step 2, is skipped in that case.
+The review still works; it just loses its provenance.
 
 If `architecture-reviews/` already exists, read the frontmatter of the most
 recent review's candidates. If any are still `open`, offer to resume that
@@ -154,9 +157,9 @@ review rather than rescanning: read `review.md`, list the open candidates by
 name, and go to step 3. Refer to candidates by their titles, never by bare
 slugs or paths.
 
-Compare `review.md`'s `commit` against current HEAD. If the tree has moved on
-enough that the findings may no longer hold, say so and let the user choose
-between resuming anyway and a fresh scan.
+When the review records a `commit`, compare it against current HEAD. If the
+tree has moved on enough that the findings may no longer hold, say so and let
+the user choose between resuming anyway and a fresh scan.
 
 Otherwise continue to step 1.
 
@@ -175,7 +178,8 @@ that have recently changed. Decide *where* to look before you look:
 
 Record the current HEAD SHA (`git rev-parse HEAD`) while you are here; step 2
 stamps it into `review.md` so a later session can tell how far the tree has
-moved.
+moved. Outside a git repo, skip the history walk above and leave `commit` out
+of the frontmatter.
 
 For domain vocabulary, read the current feature's `data-model.md` and the
 `Key Entities` section of its `spec.md` if a `.specify/` tree exists. Use the
@@ -215,13 +219,13 @@ markup, describing which pattern from [HTML-REPORT.md](HTML-REPORT.md) fits
 and what the before and after shapes are. The renderer draws from it, so a
 vague `## Diagram` section produces a vague diagram.
 
-**Offer to ignore the HTML.** Check whether the rendering is already ignored
-(`git check-ignore -q architecture-reviews/<dir>/review.html`). If it isn't,
-tell the user the line to add, `architecture-reviews/**/review.html`, and
-offer to add it. Never edit `.gitignore` without being asked.
+**Offer to ignore the HTML.** In a git repo, check whether the rendering is
+already ignored, with `git check-ignore -q` on the `review.html` path. If it
+isn't, tell the user the line to add, `architecture-reviews/**/review.html`,
+and offer to add it. Never edit `.gitignore` without being asked.
 
 **Delegate the rendering.** Use the Agent tool to write `review.html`. Give
-the subagent the absolute path to the review directory and the absolute path
+the sub-agent the absolute path to the review directory and the absolute path
 to `HTML-REPORT.md` in this skill's directory, and have it read the candidate
 files and write the HTML. Ask it to return only the path it wrote. Do not
 author the markup in this session: keeping several thousand tokens of Tailwind
