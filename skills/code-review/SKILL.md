@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's constitution and documented coding standards?) and Spec (does the code match the feature's spec.md, plan.md, and tasks.md?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, or work-in-progress changes against a Spec Kit feature.
+description: "Review the changes since a fixed point (commit, branch, tag, or merge-base) along two axes: Standards (does the code follow this repo's constitution and documented coding standards?) and Spec (does the code match the feature's spec.md, plan.md, and tasks.md?). Runs both reviews in parallel sub-agents and reports them side by side. Use when the user wants to review a branch, a PR, or work-in-progress changes against a Spec Kit feature."
 ---
 
 # Code Review
