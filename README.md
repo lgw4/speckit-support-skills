@@ -77,7 +77,7 @@ wrapper files in this repo's `.opencode/command/`. To get them across
 projects, copy that directory into `~/.config/opencode/command/`:
 
 ```
-cp -R .opencode/command ~/.config/opencode/command/
+mkdir -p ~/.config/opencode/command && cp -R .opencode/command/. ~/.config/opencode/command/
 ```
 
 `grilling` is model-invoked only, as in Claude Code. OpenCode's newer
@@ -87,7 +87,8 @@ unified marketplace may eventually consume this repo's
 
 Restart OpenCode after making these changes. Note that in OpenCode the
 skills remain model-discoverable even where Claude Code restricts them to
-slash invocation: the wrapper commands are the intended hand, not a fence.
+slash invocation: the wrapper commands are the intended way to invoke
+the skills, not a fence.
 
 ## Invoking the skills
 
