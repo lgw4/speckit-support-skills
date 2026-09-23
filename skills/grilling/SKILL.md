@@ -15,8 +15,9 @@ round: number each question and give your recommended answer, then wait for
 the user's answers before the next round.
 
 If the user asks for one question at a time, either in the moment or as a
-standing instruction in their `CLAUDE.md`, honor it: ask the frontier's
-highest-leverage question on its own and wait. Only the number of questions
+standing instruction in their global instructions file (`CLAUDE.md` or
+`AGENTS.md`), honor it: ask the frontier's highest-leverage question on its
+own and wait. Only the number of questions
 per round changes; the tree, the frontier, and everything below still
 govern what you ask and when.
 
@@ -43,8 +44,8 @@ this one.
 
 Finding *facts* is your job, never the user's. When a frontier question
 needs a fact from the environment (the filesystem, git history, existing
-code, project documents), use the Agent tool with `subagent_type=Explore`
-to look it up in the background rather than asking. Don't block the round
+code, project documents), spawn a codebase-exploration sub-agent to look it
+up in the background rather than asking. Don't block the round
 on it: a running lookup is an unsettled prerequisite, so only the
 questions downstream of it wait for the sub-agent to report; ask the rest
 of the frontier now. The *decisions* are the user's alone; put each one to

@@ -187,9 +187,9 @@ project's own terms for the domain: if the spec calls something an "Order,"
 talk about "the Order intake module," not "the FooBarHandler" and not "the
 Order service." Also read `.specify/memory/constitution.md` if present.
 
-Then use the Agent tool with `subagent_type=Explore` to walk the codebase.
-Don't follow rigid heuristics; explore organically and note where you
-experience friction:
+Then spawn a codebase-exploration sub-agent to walk the codebase. Don't
+follow rigid heuristics; explore organically and note where you experience
+friction:
 
 - Where does understanding one concept require bouncing between many small
   modules?
@@ -224,7 +224,7 @@ already ignored, with `git check-ignore -q` on the `review.html` path. If it
 isn't, tell the user the line to add, `architecture-reviews/**/review.html`,
 and offer to add it. Never edit `.gitignore` without being asked.
 
-**Delegate the rendering.** Use the Agent tool to write `review.html`. Give
+**Delegate the rendering.** Use a sub-agent to write `review.html`. Give
 the sub-agent the absolute path to the review directory and the absolute path
 to `HTML-REPORT.md` in this skill's directory, and have it read the candidate
 files and write the HTML. Ask it to return only the path it wrote. Do not

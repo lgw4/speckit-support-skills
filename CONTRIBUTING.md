@@ -31,6 +31,8 @@ skills/
   <skill-name>/
     SKILL.md         # required; the skill itself
     *.md             # optional supporting docs the skill links to
+.opencode/
+  command/           # OpenCode slash-command wrappers for the user-invoked skills
 ```
 
 Everything a skill needs lives in its own directory. Supporting files (for
@@ -74,6 +76,10 @@ argument-hint: "What do you want to be grilled on?"   # optional
 - `argument-hint` sets the placeholder shown after the slash command.
 
 Then add a row to the skill catalog table in the README, in pipeline order.
+If the skill is user-invoked (a slash command rather than model-invoked
+only), also create `.opencode/command/<skill-name>.md` so the same command
+works in OpenCode, whose wrapper loads the skill and passes `$ARGUMENTS`
+through.
 
 New skills should earn their place: if the behavior fits inside an existing
 skill without bloating it, put it there instead.
@@ -105,6 +111,27 @@ confirm it:
 - behaves the way the frontmatter `description` promises,
 - degrades sensibly when those files are missing.
 
+### OpenCode
+
+Every skill is a single `SKILL.md`, so the same file must also load in
+OpenCode. Point it at the working copy and repeat the checks:
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "skills": {
+    "paths": ["/path/to/your/speckit-support-skills/skills"]
+  }
+}
+```
+
+Run `opencode debug skill` (project-scope, from this repo) and confirm
+every skill the change touched appears with its name and description and no
+frontmatter errors. A change that adds or renames a user-invoked skill must
+also add or rename its wrapper in `.opencode/command/`, which you can list
+with `opencode debug config`. Restart OpenCode between edits; it does not
+hot-reload config.
+
 Note in your pull request what you exercised it against.
 
 ## Pull requests
@@ -113,7 +140,8 @@ Note in your pull request what you exercised it against.
   reorganization are two pull requests.
 - Bump `version` in `.claude-plugin/plugin.json` when skill behavior
   changes. Patch for wording and fixes, minor for new skills or changed
-  behavior.
+  behavior. The OpenCode surface rides the same version; a change that
+  touches `.opencode/command/` wrappers is a behavior change too.
 - Describe what changed in the skill's *behavior*, not just which lines
   moved, and say how you tested it.
 

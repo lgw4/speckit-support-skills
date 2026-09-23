@@ -180,9 +180,9 @@ broken this.
   with "sks:grilling", scoped to this one decision.
 - **Research** (AFK): reading documentation, third-party APIs, or local
   resources to surface a fact a decision waits on. Resolve it with a
-  sub-agent (`subagent_type=Explore` for facts inside the repo, a
-  general-purpose agent with web access for facts outside it) and record
-  the findings as the resolution. Use when knowledge outside the
+  sub-agent (a codebase-exploration sub-agent for facts inside the repo,
+  a general-purpose sub-agent with web access for those outside it) and
+  record the findings as the resolution. Use when knowledge outside the
   conversation is required.
 - **Prototype** (HITL): raise the fidelity of the discussion by making a
   cheap, rough, concrete artifact to react to: an outline, a rough take,

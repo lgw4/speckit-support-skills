@@ -29,6 +29,11 @@ A behavior change touches three places beyond the skill file:
 3. `version` in `.claude-plugin/plugin.json` (patch for wording, minor for
    new skills or changed behavior).
 
+Plus, for a user-invoked skill, a fourth: its wrapper in
+`.opencode/command/<skill-name>.md` (the OpenCode slash command that loads
+the skill and passes `$ARGUMENTS`). Keep the wrapper's name and the
+skill's `name` in step.
+
 ## Style
 
 Wrap prose at ~76 columns; leave frontmatter `description` values, table
@@ -50,7 +55,10 @@ is deliberate; don't "fix" it.
 
 Confirm it reads the constitution and spec tree it claims to, behaves as
 its `description` promises, and degrades sensibly when those files are
-missing.
+missing. Every `SKILL.md` is shared with OpenCode, so also point it at the
+working copy (`skills.paths` in an `opencode.json`) and run
+`opencode debug skill` to confirm every skill loads with no frontmatter
+errors; see [CONTRIBUTING.md](CONTRIBUTING.md) for the setup.
 
 ## Attribution
 
