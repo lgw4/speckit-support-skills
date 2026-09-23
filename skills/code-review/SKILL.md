@@ -24,10 +24,12 @@ This skill reads the code.
 
 ### 1. Pin the fixed point
 
-Delegate all git operations in this step to the `git-ops` agent. Whatever the
-user said is the fixed point: a commit SHA, branch name, tag, `main`,
-`HEAD~5`, etc. If they didn't specify one and the repo has a default branch,
-default to the merge-base with it and say so; otherwise ask.
+If this environment defines a `git-ops` sub-agent (as the project's global
+instructions do in Claude Code), delegate all git operations in this step to
+it; otherwise run them yourself. Whatever the user said is the fixed point:
+a commit SHA, branch name, tag, `main`, `HEAD~5`, etc. If they didn't
+specify one and the repo has a default branch, default to the merge-base
+with it and say so; otherwise ask.
 
 Capture the diff command once: `git diff <fixed-point>...HEAD` (three-dot, so
 the comparison is against the merge-base). Also note the commit list via
@@ -58,7 +60,7 @@ In priority order:
 1. `.specify/memory/constitution.md`, if present. Its principles are
    MUST-level and override everything below.
 2. Anything else in the repo that documents how code should be written:
-   `CLAUDE.md`, `CONTRIBUTING.md`, `CODING_STANDARDS.md`.
+   `AGENTS.md`/`CLAUDE.md`, `CONTRIBUTING.md`, `CODING_STANDARDS.md`.
 
 On top of whatever the repo documents, the Standards axis always carries the
 **smell baseline** below: a fixed set of Fowler code smells (*Refactoring*,

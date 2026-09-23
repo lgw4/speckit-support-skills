@@ -53,6 +53,42 @@ Pull future updates with:
 /plugin marketplace update speckit-support-skills
 ```
 
+### OpenCode
+
+The same six `SKILL.md` files load in [OpenCode](https://opencode.ai),
+which tolerates the plugin's Claude Code frontmatter as-is. There is no
+plugin package to install: OpenCode reads skills straight from this repo's
+`skills/` directory. Add it to `skills.paths` in an `opencode.json` at any
+scope (`.opencode/opencode.json` for one project, or
+`~/.config/opencode/opencode.json` to follow you everywhere):
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "skills": {
+    "paths": ["/path/to/speckit-support-skills/skills"]
+  }
+}
+```
+
+User-invoked skills (`/grill-me`, `/wayfinder`, `/teach`,
+`/improve-codebase-architecture`, `/code-review`) are slash commands via the
+wrapper files in this repo's `.opencode/command/`. To get them across
+projects, copy that directory into `~/.config/opencode/command/`:
+
+```
+cp -R .opencode/command ~/.config/opencode/command/
+```
+
+`grilling` is model-invoked only, as in Claude Code. OpenCode's newer
+unified marketplace may eventually consume this repo's
+`.claude-plugin/marketplace.json` catalog directly; until then, the
+`skills.paths` route above is the supported path.
+
+Restart OpenCode after making these changes. Note that in OpenCode the
+skills remain model-discoverable even where Claude Code restricts them to
+slash invocation: the wrapper commands are the intended hand, not a fence.
+
 ## Invoking the skills
 
 Installing as a plugin namespaces every skill under the plugin's name,
@@ -82,7 +118,7 @@ The interviews run round by round: each round asks every question whose
 prerequisites are already settled, so a session lands in a few rounds
 instead of one long drip. If you prefer one question at a time, say so, or
 add "When grilling, ask one question at a time." to your global
-`CLAUDE.md`.
+`CLAUDE.md` (or `AGENTS.md` in OpenCode).
 
 ## Credit
 
