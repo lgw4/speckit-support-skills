@@ -117,6 +117,7 @@ The plugin is `sks` but the marketplace it comes from is
 | [code-review](skills/code-review/SKILL.md) | `/code-review` | Two-axis review of a diff: Standards (constitution + coding standards + Fowler smell baseline) and Spec (`spec.md`/`plan.md`/`tasks.md`), each run by a parallel sub-agent |
 | [improve-codebase-architecture](skills/improve-codebase-architecture/SKILL.md) | `/improve-codebase-architecture` | Scans for shallow modules and deepening opportunities, persists them as version-controlled Markdown (`architecture-reviews/<date>-<slug>/`, one file per candidate) alongside a sub-agent-rendered HTML report, then grills through one candidate per session and hands it to `/speckit-specify` |
 | [pr](skills/pr/SKILL.md) | `/pr` or model-invoked | Shapes a PR body: a Summary visual in the spec's domain language, before/after Evidence tied to `spec.md` acceptance scenarios and success criteria, and a Merge Danger call (one-way or two-way door, blast radius) informed by `data-model.md`, `contracts/`, and the constitution |
+| [writing-for-agents](skills/writing-for-agents/SKILL.md) | model-invoked | Writing reference for any document an agent consumes (skills, `AGENTS.md`/`CLAUDE.md`, the constitution): context pointers, the two loads, information hierarchy, completion criteria, leading words, pruning, and which Spec Kit steering files Spec Kit owns |
 | [teach](skills/teach/SKILL.md) | `/teach` | Stateful, multi-session learning workspace: mission, resources, lessons, glossary, learning records |
 
 The interviews run round by round: each round asks every question whose
@@ -130,11 +131,11 @@ add "When grilling, ask one question at a time." to your global
 These skills are close ports of Matt Pocock's
 [mattpocock/skills](https://github.com/mattpocock/skills), specifically his
 `wayfinder`, `grill-me`, `grilling`, `code-review`,
-`improve-codebase-architecture`, `codebase-design`, `pr`, and `teach`
-(`codebase-design` has no standalone skill here; it is folded into this
-repo's `improve-codebase-architecture`). They are reworked to ground
-themselves in Spec Kit's constitution and spec tree instead of the generic
-conventions the originals look for. The decision-map model, the interview
+`improve-codebase-architecture`, `codebase-design`, `pr`, `teach`, and
+`writing-for-agents` (`codebase-design` has no standalone skill here; it is
+folded into this repo's `improve-codebase-architecture`). They are
+reworked to ground themselves in Spec Kit's constitution and spec tree
+instead of the generic conventions the originals look for. The decision-map model, the interview
 technique, the two-axis review, the deep-module vocabulary, and the
 teaching workspace model are all his; go star the original repo.
 
