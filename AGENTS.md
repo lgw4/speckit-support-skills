@@ -30,7 +30,7 @@ A behavior change touches three places beyond the skill file:
    new skills or changed behavior).
 
 Plus, for a user-invoked skill, a fourth: its wrapper in
-`.opencode/command/<skill-name>.md` (the OpenCode slash command that loads
+`.opencode/commands/<skill-name>.md` (the OpenCode slash command that loads
 the skill and passes `$ARGUMENTS`). Keep the wrapper's name and the
 skill's `name` in step.
 

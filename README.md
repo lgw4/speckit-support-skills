@@ -79,12 +79,12 @@ scope (`.opencode/opencode.json` for one project, or
 
 User-invoked skills (`/grill-me`, `/wayfinder`, `/teach`,
 `/improve-codebase-architecture`, `/code-review`, `/pr`, `/retro`) are
-slash commands via the wrapper files in this repo's `.opencode/command/`.
+slash commands via the wrapper files in this repo's `.opencode/commands/`.
 To get them across projects, copy that directory into
-`~/.config/opencode/command/`:
+`~/.config/opencode/commands/`:
 
 ```
-mkdir -p ~/.config/opencode/command && cp -R .opencode/command/. ~/.config/opencode/command/
+mkdir -p ~/.config/opencode/commands && cp -R .opencode/commands/. ~/.config/opencode/commands/
 ```
 
 `grilling` is model-invoked only, as in Claude Code. OpenCode's newer
