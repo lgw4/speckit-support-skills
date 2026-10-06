@@ -7,7 +7,7 @@
     {
       "name": "sks",
       "source": "./",
-      "description": "Support skills for GitHub Spec Kit projects: grilling before you spec, two-axis code review, architecture deepening, and stateful teaching."
+      "description": "Support skills for GitHub Spec Kit projects: initiative-scale decision mapping, grilling before you spec, two-axis code review, architecture deepening, PR bodies, session retrospectives, writing for agents, and stateful teaching. Ports of Matt Pocock's skills, adapted to read the Spec Kit constitution and spec tree."
     }
   ]
 }

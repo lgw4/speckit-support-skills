@@ -30,7 +30,7 @@ A behavior change touches three places beyond the skill file:
    new skills or changed behavior).
 
 Plus, for a user-invoked skill, a fourth: its wrapper in
-`.opencode/command/<skill-name>.md` (the OpenCode slash command that loads
+`.opencode/commands/<skill-name>.md` (the OpenCode slash command that loads
 the skill and passes `$ARGUMENTS`). Keep the wrapper's name and the
 skill's `name` in step.
 
@@ -55,13 +55,14 @@ is deliberate; don't "fix" it.
 
 Confirm it reads the constitution and spec tree it claims to, behaves as
 its `description` promises, and degrades sensibly when those files are
-missing. Every `SKILL.md` is shared with OpenCode, so also point it at the
-working copy (`skills.paths` in an `opencode.json`) and run
-`opencode debug skill` to confirm every skill loads with no frontmatter
-errors; see [CONTRIBUTING.md](CONTRIBUTING.md) for the setup.
+missing. Every `SKILL.md` is shared with OpenCode v2, so also point it at
+the working copy (`skills` in an `opencode.json`) and list what loaded with
+`opencode api skill.list` and `opencode api command.list`, confirming each
+skill's name and full description; see [CONTRIBUTING.md](CONTRIBUTING.md)
+for the setup.
 
 ## Attribution
 
-All six skills are ports of Matt Pocock's
+Every skill here is a port of Matt Pocock's
 [skills](https://github.com/mattpocock/skills). Keep the README Credit
 section accurate and both copyright notices in [LICENSE](LICENSE) intact.

@@ -16,7 +16,7 @@ the occasional new skill.
   `/speckit-plan`, `/speckit-tasks`, `/speckit-implement`, or
   `/speckit-analyze` already does something, a skill here should not do it
   again. These skills bracket that pipeline; they don't replace parts of it.
-- **Preserve attribution.** All six skills are ports of
+- **Preserve attribution.** Every skill here is a port of
   [Matt Pocock's skills](https://github.com/mattpocock/skills). Keep the
   Credit section of the README accurate, and keep both copyright notices in
   [LICENSE](LICENSE) intact.
@@ -32,7 +32,7 @@ skills/
     SKILL.md         # required; the skill itself
     *.md             # optional supporting docs the skill links to
 .opencode/
-  command/           # OpenCode slash-command wrappers for the user-invoked skills
+  commands/          # OpenCode slash-command wrappers for the user-invoked skills
 ```
 
 Everything a skill needs lives in its own directory. Supporting files (for
@@ -71,13 +71,13 @@ argument-hint: "What do you want to be grilled on?"   # optional
   ..."), since this is the only text Claude sees when deciding to invoke.
 - `disable-model-invocation: true` marks a skill that only a human should
   start with a slash command. `grill-me`, `improve-codebase-architecture`,
-  and `teach` all use it. Omit it for skills other skills can call, like
-  `grilling`.
+  `retro`, and `teach` all use it. Omit it for skills other skills can
+  call, like `grilling` and `writing-for-agents`.
 - `argument-hint` sets the placeholder shown after the slash command.
 
 Then add a row to the skill catalog table in the README, in pipeline order.
 If the skill is user-invoked (a slash command rather than model-invoked
-only), also create `.opencode/command/<skill-name>.md` so the same command
+only), also create `.opencode/commands/<skill-name>.md` so the same command
 works in OpenCode, whose wrapper loads the skill and passes `$ARGUMENTS`
 through.
 
@@ -114,23 +114,39 @@ confirm it:
 ### OpenCode
 
 Every skill is a single `SKILL.md`, so the same file must also load in
-OpenCode. Point it at the working copy and repeat the checks:
+OpenCode v2. Point it at the working copy in a scratch project's
+`.opencode/opencode.json`, copy this repo's `.opencode/commands/` into
+that project's `.opencode/`, and repeat the checks:
 
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
-  "skills": {
-    "paths": ["/path/to/your/speckit-support-skills/skills"]
-  }
+  "skills": ["/path/to/your/speckit-support-skills/skills"]
 }
 ```
 
-Run `opencode debug skill` (project-scope, from this repo) and confirm
-every skill the change touched appears with its name and description and no
-frontmatter errors. A change that adds or renames a user-invoked skill must
-also add or rename its wrapper in `.opencode/command/`, which you can list
-with `opencode debug config`. Restart OpenCode between edits; it does not
-hot-reload config.
+Restart the background service, then list what OpenCode loaded from the
+scratch project:
+
+```
+opencode service restart
+opencode api skill.list -H "x-opencode-directory:$PWD" > skills.json
+opencode api command.list -H "x-opencode-directory:$PWD" > commands.json
+jq -r '.data[] | "\(.id): \(.description)"' skills.json
+jq -r '.data[] | "\(.name): \(.description)"' commands.json
+```
+
+Write to a file, not a pipe: `opencode api` truncates large responses
+written to a pipe. The service discovers skills asynchronously, so an
+empty `data` array right after a restart means "not yet"; it can take
+half a minute, so wait and ask again.
+
+Confirm every skill the change touched appears with the exact `name` and
+the full `description` you wrote. OpenCode parses frontmatter leniently,
+so a description cut short at a stray colon is the symptom to look for,
+not an error. A change that adds or renames a user-invoked skill must also
+add or rename its wrapper in `.opencode/commands/`, and it must appear in
+the command list.
 
 Note in your pull request what you exercised it against.
 
@@ -141,7 +157,7 @@ Note in your pull request what you exercised it against.
 - Bump `version` in `.claude-plugin/plugin.json` when skill behavior
   changes. Patch for wording and fixes, minor for new skills or changed
   behavior. The OpenCode surface rides the same version; a change that
-  touches `.opencode/command/` wrappers is a behavior change too.
+  touches `.opencode/commands/` wrappers is a behavior change too.
 - Describe what changed in the skill's *behavior*, not just which lines
   moved, and say how you tested it.
 
