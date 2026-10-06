@@ -55,10 +55,11 @@ is deliberate; don't "fix" it.
 
 Confirm it reads the constitution and spec tree it claims to, behaves as
 its `description` promises, and degrades sensibly when those files are
-missing. Every `SKILL.md` is shared with OpenCode, so also point it at the
-working copy (`skills.paths` in an `opencode.json`) and run
-`opencode debug skill` to confirm every skill loads with no frontmatter
-errors; see [CONTRIBUTING.md](CONTRIBUTING.md) for the setup.
+missing. Every `SKILL.md` is shared with OpenCode v2, so also point it at
+the working copy (`skills` in an `opencode.json`) and list what loaded with
+`opencode api skill.list` and `opencode api command.list`, confirming each
+skill's name and full description; see [CONTRIBUTING.md](CONTRIBUTING.md)
+for the setup.
 
 ## Attribution
 

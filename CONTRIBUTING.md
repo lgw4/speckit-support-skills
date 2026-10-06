@@ -114,23 +114,39 @@ confirm it:
 ### OpenCode
 
 Every skill is a single `SKILL.md`, so the same file must also load in
-OpenCode. Point it at the working copy and repeat the checks:
+OpenCode v2. Point it at the working copy in a scratch project's
+`.opencode/opencode.json`, copy this repo's `.opencode/commands/` into
+that project's `.opencode/`, and repeat the checks:
 
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
-  "skills": {
-    "paths": ["/path/to/your/speckit-support-skills/skills"]
-  }
+  "skills": ["/path/to/your/speckit-support-skills/skills"]
 }
 ```
 
-Run `opencode debug skill` (project-scope, from this repo) and confirm
-every skill the change touched appears with its name and description and no
-frontmatter errors. A change that adds or renames a user-invoked skill must
-also add or rename its wrapper in `.opencode/commands/`, which you can list
-with `opencode debug config`. Restart OpenCode between edits; it does not
-hot-reload config.
+Restart the background service, then list what OpenCode loaded from the
+scratch project:
+
+```
+opencode service restart
+opencode api skill.list -H "x-opencode-directory:$PWD" > skills.json
+opencode api command.list -H "x-opencode-directory:$PWD" > commands.json
+jq -r '.data[] | "\(.id): \(.description)"' skills.json
+jq -r '.data[] | "\(.name): \(.description)"' commands.json
+```
+
+Write to a file, not a pipe: `opencode api` truncates large responses
+written to a pipe. The service discovers skills asynchronously, so an
+empty `data` array right after a restart means "not yet"; it can take
+half a minute, so wait and ask again.
+
+Confirm every skill the change touched appears with the exact `name` and
+the full `description` you wrote. OpenCode parses frontmatter leniently,
+so a description cut short at a stray colon is the symptom to look for,
+not an error. A change that adds or renames a user-invoked skill must also
+add or rename its wrapper in `.opencode/commands/`, and it must appear in
+the command list.
 
 Note in your pull request what you exercised it against.
 

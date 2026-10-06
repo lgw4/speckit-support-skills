@@ -61,21 +61,21 @@ Pull future updates with:
 
 ### OpenCode
 
-The same `SKILL.md` files load in [OpenCode](https://opencode.ai),
+The same `SKILL.md` files load in [OpenCode](https://opencode.ai) v2,
 which tolerates the plugin's Claude Code frontmatter as-is. There is no
 plugin package to install: OpenCode reads skills straight from this repo's
-`skills/` directory. Add it to `skills.paths` in an `opencode.json` at any
-scope (`.opencode/opencode.json` for one project, or
+`skills/` directory. Add it to `skills` in an `opencode.json` at any scope
+(`.opencode/opencode.json` for one project, or
 `~/.config/opencode/opencode.json` to follow you everywhere):
 
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
-  "skills": {
-    "paths": ["/path/to/speckit-support-skills/skills"]
-  }
+  "skills": ["/path/to/speckit-support-skills/skills"]
 }
 ```
+
+OpenCode v1's `{"skills": {"paths": [...]}}` shape still works in v2.
 
 User-invoked skills (`/grill-me`, `/wayfinder`, `/teach`,
 `/improve-codebase-architecture`, `/code-review`, `/pr`, `/retro`) are
@@ -87,15 +87,19 @@ To get them across projects, copy that directory into
 mkdir -p ~/.config/opencode/commands && cp -R .opencode/commands/. ~/.config/opencode/commands/
 ```
 
-`grilling` is model-invoked only, as in Claude Code. OpenCode's newer
-unified marketplace may eventually consume this repo's
-`.claude-plugin/marketplace.json` catalog directly; until then, the
-`skills.paths` route above is the supported path.
+If you copied them into the singular `~/.config/opencode/command/` before,
+delete that copy; v2 reads both directories.
 
-Restart OpenCode after making these changes. Note that in OpenCode the
-skills remain model-discoverable even where Claude Code restricts them to
-slash invocation: the wrapper commands are the intended way to invoke
-the skills, not a fence.
+`grilling` and `writing-for-agents` are model-invoked only, as in Claude
+Code. OpenCode's newer unified marketplace may eventually consume this
+repo's `.claude-plugin/marketplace.json` catalog directly; until then, the
+`skills` route above is the supported path.
+
+Restart OpenCode's background service (`opencode service restart`) after
+making these changes. Note that in OpenCode the skills remain
+model-discoverable even where Claude Code restricts them to slash
+invocation: the wrapper commands are the intended way to invoke the
+skills, not a fence.
 
 ## Invoking the skills
 
