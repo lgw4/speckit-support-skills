@@ -23,6 +23,7 @@ oversized idea → /wayfinder ↘ (one feature-sized piece at a time)
           idea → /grill-me → /speckit-specify → /speckit-clarify → /speckit-plan
      → /speckit-tasks → /speckit-implement → /code-review → /speckit-converge
                                            ↘ /improve-codebase-architecture
+     → /pr
 ```
 
 `/wayfinder` charts an initiative too big for one spec as a
@@ -36,7 +37,9 @@ something `/speckit-analyze` doesn't do since it only compares Spec Kit's
 own artifacts against each other. `/improve-codebase-architecture` persists
 its findings as version-controlled Markdown under a top-level
 `architecture-reviews/` directory, then works through one candidate per
-session. `/teach` is orthogonal, a standalone
+session. `/pr` writes the pull request body once the diff is reviewed,
+showing the change and grading how risky it is to land against what the
+spec promised. `/teach` is orthogonal, a standalone
 stateful learning workspace, useful for onboarding onto a Spec Kit
 project's own domain or for anything else.
 
@@ -72,9 +75,9 @@ scope (`.opencode/opencode.json` for one project, or
 ```
 
 User-invoked skills (`/grill-me`, `/wayfinder`, `/teach`,
-`/improve-codebase-architecture`, `/code-review`) are slash commands via the
-wrapper files in this repo's `.opencode/command/`. To get them across
-projects, copy that directory into `~/.config/opencode/command/`:
+`/improve-codebase-architecture`, `/code-review`, `/pr`) are slash commands
+via the wrapper files in this repo's `.opencode/command/`. To get them
+across projects, copy that directory into `~/.config/opencode/command/`:
 
 ```
 mkdir -p ~/.config/opencode/command && cp -R .opencode/command/. ~/.config/opencode/command/
@@ -113,6 +116,7 @@ The plugin is `sks` but the marketplace it comes from is
 | [grilling](skills/grilling/SKILL.md) | model-invoked | The shared round-by-round interview loop `wayfinder`, `grill-me`, and `improve-codebase-architecture` all run on |
 | [code-review](skills/code-review/SKILL.md) | `/code-review` | Two-axis review of a diff: Standards (constitution + coding standards + Fowler smell baseline) and Spec (`spec.md`/`plan.md`/`tasks.md`), each run by a parallel sub-agent |
 | [improve-codebase-architecture](skills/improve-codebase-architecture/SKILL.md) | `/improve-codebase-architecture` | Scans for shallow modules and deepening opportunities, persists them as version-controlled Markdown (`architecture-reviews/<date>-<slug>/`, one file per candidate) alongside a sub-agent-rendered HTML report, then grills through one candidate per session and hands it to `/speckit-specify` |
+| [pr](skills/pr/SKILL.md) | `/pr` or model-invoked | Shapes a PR body: a Summary visual in the spec's domain language, before/after Evidence tied to `spec.md` acceptance scenarios and success criteria, and a Merge Danger call (one-way or two-way door, blast radius) informed by `data-model.md`, `contracts/`, and the constitution |
 | [teach](skills/teach/SKILL.md) | `/teach` | Stateful, multi-session learning workspace: mission, resources, lessons, glossary, learning records |
 
 The interviews run round by round: each round asks every question whose
@@ -126,13 +130,17 @@ add "When grilling, ask one question at a time." to your global
 These skills are close ports of Matt Pocock's
 [mattpocock/skills](https://github.com/mattpocock/skills), specifically his
 `wayfinder`, `grill-me`, `grilling`, `code-review`,
-`improve-codebase-architecture`, `codebase-design`, and `teach`
+`improve-codebase-architecture`, `codebase-design`, `pr`, and `teach`
 (`codebase-design` has no standalone skill here; it is folded into this
 repo's `improve-codebase-architecture`). They are reworked to ground
 themselves in Spec Kit's constitution and spec tree instead of the generic
 conventions the originals look for. The decision-map model, the interview
 technique, the two-axis review, the deep-module vocabulary, and the
 teaching workspace model are all his; go star the original repo.
+
+The `pr` skill's Summary visuals come from Dex Horthy's
+[`show-me`](https://github.com/humanlayer/skills) skill (MIT, HumanLayer),
+by way of Matt's `pr`; see [its credits](skills/pr/CREDITS.md).
 
 The `grill-me` framing was also informed by Luis Mori's
 ["The Grill-Me Skill" article](https://luismori.dev/article/grill-me-skill-agentic-development-workflow/),
