@@ -16,7 +16,7 @@ the occasional new skill.
   `/speckit-plan`, `/speckit-tasks`, `/speckit-implement`, or
   `/speckit-analyze` already does something, a skill here should not do it
   again. These skills bracket that pipeline; they don't replace parts of it.
-- **Preserve attribution.** All six skills are ports of
+- **Preserve attribution.** Every skill here is a port of
   [Matt Pocock's skills](https://github.com/mattpocock/skills). Keep the
   Credit section of the README accurate, and keep both copyright notices in
   [LICENSE](LICENSE) intact.
@@ -71,8 +71,8 @@ argument-hint: "What do you want to be grilled on?"   # optional
   ..."), since this is the only text Claude sees when deciding to invoke.
 - `disable-model-invocation: true` marks a skill that only a human should
   start with a slash command. `grill-me`, `improve-codebase-architecture`,
-  and `teach` all use it. Omit it for skills other skills can call, like
-  `grilling`.
+  `retro`, and `teach` all use it. Omit it for skills other skills can
+  call, like `grilling` and `writing-for-agents`.
 - `argument-hint` sets the placeholder shown after the slash command.
 
 Then add a row to the skill catalog table in the README, in pipeline order.

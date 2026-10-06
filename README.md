@@ -7,9 +7,10 @@ spec-driven pipeline. Spec Kit is strong once a spec exists
 → `/speckit-implement`), but it doesn't plan an initiative too big for a
 single spec, doesn't interrogate a fuzzy idea before turning it into a
 confident spec, doesn't review code against that spec once written, doesn't
-surface architectural decay, and doesn't teach.
+surface architectural decay, doesn't write the pull request, doesn't learn
+from how a session went, and doesn't teach.
 
-These six skills are ports of [Matt Pocock](https://github.com/mattpocock)'s
+These skills are ports of [Matt Pocock](https://github.com/mattpocock)'s
 [skills](https://github.com/mattpocock/skills), adapted to read a Spec Kit
 project's `.specify/memory/constitution.md` and `specs/<NNN>-<name>/` tree as
 their source of truth instead of the generic conventions Matt's originals
@@ -60,7 +61,7 @@ Pull future updates with:
 
 ### OpenCode
 
-The same six `SKILL.md` files load in [OpenCode](https://opencode.ai),
+The same `SKILL.md` files load in [OpenCode](https://opencode.ai),
 which tolerates the plugin's Claude Code frontmatter as-is. There is no
 plugin package to install: OpenCode reads skills straight from this repo's
 `skills/` directory. Add it to `skills.paths` in an `opencode.json` at any

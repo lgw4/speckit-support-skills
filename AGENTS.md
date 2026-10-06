@@ -62,6 +62,6 @@ errors; see [CONTRIBUTING.md](CONTRIBUTING.md) for the setup.
 
 ## Attribution
 
-All six skills are ports of Matt Pocock's
+Every skill here is a port of Matt Pocock's
 [skills](https://github.com/mattpocock/skills). Keep the README Credit
 section accurate and both copyright notices in [LICENSE](LICENSE) intact.
