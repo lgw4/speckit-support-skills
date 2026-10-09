@@ -80,15 +80,22 @@ OpenCode v1's `{"skills": {"paths": [...]}}` shape still works in v2.
 User-invoked skills (`/grill-me`, `/wayfinder`, `/teach`,
 `/improve-codebase-architecture`, `/code-review`, `/pr`, `/retro`) are
 slash commands via the wrapper files in this repo's `.opencode/commands/`.
-To get them across projects, copy that directory into
+To get them across projects, symlink that directory into
 `~/.config/opencode/commands/`:
 
 ```
-mkdir -p ~/.config/opencode/commands && cp -R .opencode/commands/. ~/.config/opencode/commands/
+ln -s /path/to/speckit-support-skills/.opencode/commands ~/.config/opencode/commands
 ```
 
-If you copied them into the singular `~/.config/opencode/command/` before,
-delete that copy; v2 reads both directories.
+Use the absolute path to your clone so the link resolves from any
+directory. Because it is a link, `git pull` updates the OpenCode commands
+along with the skills, and there is no copy step to repeat.
+
+If `~/.config/opencode/commands/` is already a real directory (for example,
+from an earlier `cp -R`), fold its contents into your clone before
+replacing it with the link. If you copied the wrappers into the singular
+`~/.config/opencode/command/` before, delete that copy; v2 reads both
+directories.
 
 `grilling` and `writing-for-agents` are model-invoked only, as in Claude
 Code. OpenCode's newer unified marketplace may eventually consume this

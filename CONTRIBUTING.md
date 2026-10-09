@@ -115,14 +115,18 @@ confirm it:
 
 Every skill is a single `SKILL.md`, so the same file must also load in
 OpenCode v2. Point it at the working copy in a scratch project's
-`.opencode/opencode.json`, copy this repo's `.opencode/commands/` into
-that project's `.opencode/`, and repeat the checks:
+`.opencode/opencode.json` and symlink this repo's `.opencode/commands/`
+into that project's `.opencode/`:
 
 ```json
 {
   "$schema": "https://opencode.ai/config.json",
   "skills": ["/path/to/your/speckit-support-skills/skills"]
 }
+```
+
+```
+ln -s /path/to/your/speckit-support-skills/.opencode/commands .opencode/commands
 ```
 
 Restart the background service, then list what OpenCode loaded from the
