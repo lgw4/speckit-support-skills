@@ -118,7 +118,7 @@ if [ ! -e "$config" ]; then
 }
 EOF
     config_state=created
-elif grep -qF "$src_skills" "$config"; then
+elif grep -qF "\"$src_skills\"" "$config"; then
     config_state=registered
 else
     config_state=remind
