@@ -33,6 +33,7 @@ skills/
     *.md             # optional supporting docs the skill links to
 .opencode/
   commands/          # OpenCode slash-command wrappers for the user-invoked skills
+link-opencode-commands.sh   # links the OpenCode wrappers into another repo
 ```
 
 Everything a skill needs lives in its own directory. Supporting files (for
@@ -128,6 +129,11 @@ into that project's `.opencode/`:
 ```
 ln -s /path/to/your/speckit-support-skills/.opencode/commands .opencode/commands
 ```
+
+Or run `./link-opencode-commands.sh /path/to/scratch-project`, which does
+both steps for one project: it symlinks each wrapper individually, so
+project-local commands can coexist, and creates `opencode.json` with the
+`skills` entry when the project doesn't have one yet.
 
 Restart the background service, then list what OpenCode loaded from the
 scratch project:

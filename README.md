@@ -64,9 +64,8 @@ Pull future updates with:
 The same `SKILL.md` files load in [OpenCode](https://opencode.ai) v2,
 which tolerates the plugin's Claude Code frontmatter as-is. There is no
 plugin package to install: OpenCode reads skills straight from this repo's
-`skills/` directory. Add it to `skills` in an `opencode.json` at any scope
-(`.opencode/opencode.json` for one project, or
-`~/.config/opencode/opencode.json` to follow you everywhere):
+`skills/` directory. Add it to `skills` in the project's
+`.opencode/opencode.json`:
 
 ```json
 {
@@ -80,22 +79,13 @@ OpenCode v1's `{"skills": {"paths": [...]}}` shape still works in v2.
 User-invoked skills (`/grill-me`, `/wayfinder`, `/teach`,
 `/improve-codebase-architecture`, `/code-review`, `/pr`, `/retro`) are
 slash commands via the wrapper files in this repo's `.opencode/commands/`.
-To get them across projects, symlink that directory into
-`~/.config/opencode/commands/`:
-
-```
-ln -s /path/to/speckit-support-skills/.opencode/commands ~/.config/opencode/commands
-```
-
-Use the absolute path to your clone so the link resolves from any
-directory. Because it is a link, `git pull` updates the OpenCode commands
-along with the skills, and there is no copy step to repeat.
-
-If `~/.config/opencode/commands/` is already a real directory (for example,
-from an earlier `cp -R`), fold its contents into your clone before
-replacing it with the link. If you copied the wrappers into the singular
-`~/.config/opencode/command/` before, delete that copy; v2 reads both
-directories.
+To wire up a project, run `./link-opencode-commands.sh /path/to/project`
+from your clone: it symlinks each wrapper into that project's
+`.opencode/commands/` individually, so project-local commands can
+coexist, and creates the project's `.opencode/opencode.json` with the
+`skills` entry above if the project doesn't have one yet. The links are
+absolute, so a `git pull` in the clone updates every linked project's
+commands along with the skills; there is no copy step to repeat.
 
 `grilling` and `writing-for-agents` are model-invoked only, as in Claude
 Code. OpenCode's newer unified marketplace may eventually consume this
